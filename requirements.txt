@@ -1,0 +1,6 @@
+pytest
+customtkinter
+requests
+pillow
+python-dotenv
+

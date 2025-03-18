@@ -12,11 +12,12 @@ weather-project/
 ├── project.py              # Main application file
 ├── .env                    # Environment variables (API key)
 ├── requirements.txt        # Project dependencies
-└── tests/
-    ├── test_weather_fetch.py
-    ├── test_city_operations.py
-    ├── test_gui_update.py
-    └── test_initialization.py
+├── test_weather_fetch.py
+├── test_city_operations.py
+├── test_gui_update.py
+├── test_convert_temperature.py
+├── test_toggle_unit.py
+└── test_initialization.py
 ```
 
 ## How It Works
