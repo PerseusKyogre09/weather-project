@@ -366,7 +366,10 @@ class WeatherApp:
         else:
             return temp
 
-if __name__ == "__main__":
+def main():
     root = ctk.CTk()
     app = WeatherApp(root)
     root.mainloop()
+
+if __name__ == "__main__":
+    main()
