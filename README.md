@@ -1,5 +1,6 @@
 # Weather Application
-#### Video Demo:  <URL HERE>
+#### Video Demo:  
+[![Weather Application Demo](https://img.youtube.com/vi/Zg6OIAuhlp8/0.jpg)](https://youtu.be/Zg6OIAuhlp8)
 #### Description:
 
 This is my final project for CS50P (Programming with Python), where I created a weather application that demonstrates my understanding of Python programming concepts, GUI development, API integration, and software testing.
