@@ -40,7 +40,6 @@ def weather_app():
         root = MockRoot()
         app = WeatherApp.__new__(WeatherApp)
         
-        # Set minimum attributes needed for testing
         app.root = root
         app.api_key = "dummy_api_key"
         app.city = "London"

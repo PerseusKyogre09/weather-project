@@ -46,7 +46,6 @@ def mock_env_variables():
     return {"OPENWEATHER_API_KEY": "dummy_api_key"}
 
 def test_initialization_with_api_key(mock_env_variables):
-    """Test initialization with API key in environment variables"""
     with patch.dict(os.environ, mock_env_variables), \
          patch('customtkinter.set_appearance_mode') as mock_appearance, \
          patch('customtkinter.set_default_color_theme') as mock_theme, \
@@ -61,7 +60,6 @@ def test_initialization_with_api_key(mock_env_variables):
         root = MockRoot()
         app = WeatherApp.__new__(WeatherApp)
         
-        # Initialize attributes
         app.root = root
         app.api_key = mock_env_variables["OPENWEATHER_API_KEY"]
         app.temp_unit = "celsius"
@@ -71,30 +69,25 @@ def test_initialization_with_api_key(mock_env_variables):
             "Berlin", "Moscow", "Dubai", "Singapore", "Mumbai"
         ]
         
-        # Configure window and theme
         app.root.title("Weather App")
         app.root.geometry("500x800")
         app.root.resizable(False, False)
         mock_appearance("dark")
         mock_theme("blue")
         
-        # Test window configuration
         assert root.window_title == "Weather App"
         assert root.window_size == "500x800"
         assert root.resizable_width is False
         assert root.resizable_height is False
         
-        # Test theme configuration
         mock_appearance.assert_called_once_with("dark")
         mock_theme.assert_called_once_with("blue")
         
-        # Test default values
         assert app.temp_unit == "celsius"
         assert app.city == "London"
         assert app.api_key == "dummy_api_key"
 
 def test_initialization_without_api_key():
-    """Test initialization without API key raises error"""
     with patch.dict(os.environ, {}, clear=True), \
          patch('dotenv.load_dotenv'), \
          patch('os.getenv', return_value=None), \
@@ -116,7 +109,6 @@ def test_initialization_without_api_key():
         assert "API key not found" in str(excinfo.value)
 
 def test_popular_cities_initialization():
-    """Test initialization of popular cities list"""
     with patch.dict(os.environ, {"OPENWEATHER_API_KEY": "dummy_api_key"}), \
          patch('customtkinter.set_appearance_mode'), \
          patch('customtkinter.set_default_color_theme'), \

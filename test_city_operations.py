@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import patch, MagicMock
 from project import WeatherApp
 
-# Mock tkinter root and widgets for testing
 class MockWidget:
     def __init__(self, **kwargs):
         self.config_params = {}
@@ -55,7 +54,6 @@ def weather_app():
         root = MockRoot()
         app = WeatherApp.__new__(WeatherApp)
         
-        # Set minimum attributes needed for testing
         app.root = root
         app.api_key = "dummy_api_key"
         app.city = "London"
@@ -74,7 +72,6 @@ def weather_app():
         return app
 
 def test_select_city(weather_app):
-    """Test selecting a city from dropdown"""
     weather_app.select_city("Paris")
     
     assert weather_app.city == "Paris"
@@ -83,7 +80,6 @@ def test_select_city(weather_app):
     weather_app.add_to_recent_cities.assert_called_once_with("Paris")
 
 def test_add_to_recent_cities_new_city(weather_app):
-    """Test adding a new city to recent cities"""
     weather_app.add_to_recent_cities = lambda city: weather_app.recent_cities.insert(0, city)
     weather_app.add_to_recent_cities("Paris")
     
@@ -91,7 +87,6 @@ def test_add_to_recent_cities_new_city(weather_app):
     assert weather_app.recent_cities.index("Paris") == 0
 
 def test_add_to_recent_cities_existing_city(weather_app):
-    """Test adding an existing city moves it to front"""
     weather_app.recent_cities = ["London", "Paris", "Berlin"]
     weather_app.add_to_recent_cities = lambda city: (
         weather_app.recent_cities.remove(city) if city in weather_app.recent_cities else None,
@@ -103,7 +98,6 @@ def test_add_to_recent_cities_existing_city(weather_app):
     assert len(weather_app.recent_cities) == 3
 
 def test_add_to_recent_cities_limit(weather_app):
-    """Test that recent cities list is limited to 5 cities"""
     def add_to_recent_cities(city):
         if city in weather_app.recent_cities:
             weather_app.recent_cities.remove(city)
@@ -119,7 +113,6 @@ def test_add_to_recent_cities_limit(weather_app):
     assert weather_app.recent_cities == ["Mumbai", "Berlin", "New York", "Tokyo", "Paris"]
 
 def test_search_city_empty(weather_app):
-    """Test searching with empty city name"""
     with patch.object(weather_app.city_entry, 'get', return_value=""):
         weather_app.search_city()
     

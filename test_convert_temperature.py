@@ -1,7 +1,6 @@
 import pytest
 from project import WeatherApp
 
-# Mock tkinter root for testing
 class MockRoot:
     def after(self, ms, func):
         if callable(func):
@@ -19,14 +18,12 @@ class MockRoot:
 @pytest.fixture
 def weather_app():
     root = MockRoot()
-    # Monkeypatch the __init__ to avoid actual GUI creation
     WeatherApp.__init__ = lambda self, root: setattr(self, 'root', root) or setattr(self, 'temp_unit', 'celsius')
     app = WeatherApp(root)
     return app
 
 def test_convert_temperature_to_fahrenheit(weather_app):
     """Test temperature conversion from Celsius to Fahrenheit"""
-    # Test a few sample conversions
     assert weather_app.convert_temperature(0, "fahrenheit") == 32.0
     assert weather_app.convert_temperature(100, "fahrenheit") == 212.0
     assert weather_app.convert_temperature(-40, "fahrenheit") == -40.0
@@ -35,7 +32,6 @@ def test_convert_temperature_to_fahrenheit(weather_app):
 
 def test_convert_temperature_to_celsius(weather_app):
     """Test temperature conversion from Fahrenheit to Celsius (identity function)"""
-    # When asking for celsius conversion, it should return the same value
     assert weather_app.convert_temperature(15, "celsius") == 15
     assert weather_app.convert_temperature(0, "celsius") == 0
     assert weather_app.convert_temperature(-10, "celsius") == -10
